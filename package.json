@@ -1,0 +1,11 @@
+{
+  "name": "math2svg",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "license": "MIT",
+  "description": "Convert LaTeX maths expressions into SVGs.",
+  "dependencies": {
+    "mathjax-full": "^3.2.2",
+    "yargs": "^17.7.2"
+  }
+}
