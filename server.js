@@ -99,11 +99,13 @@ async function math2svg(texMath = '', scale = 1.0) {
 // Parse arguments.
 const { hideBin } = require('yargs/helpers');
 const yargs = require('yargs/yargs');
+const default_port = parseInt(process.env.MATH_TO_SVG_PORT);
 const argv = yargs(hideBin(process.argv))
       .usage('Usage: node server.js [OPTIONS]')
       .option('port', {
           alias: 'p',
           describe: 'Port to listen to.',
+          default: isNaN(default_port) ? undefined : default_port,
           type: 'number',
       })
       .option('host', {

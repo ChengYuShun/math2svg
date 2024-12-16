@@ -5,6 +5,7 @@ const { hideBin } = require('yargs/helpers');
 const yargs = require('yargs/yargs');
 
 // Parse arguments.
+const default_port = parseInt(process.env.MATH_TO_SVG_PORT);
 const argv = yargs(hideBin(process.argv))
       .usage('Usage: node client.js [OPTIONS]')
       .option('input', {
@@ -27,6 +28,7 @@ const argv = yargs(hideBin(process.argv))
       .option('port', {
           alias: 'p',
           describe: 'Server port.',
+          default: isNaN(default_port) ? undefined : default_port,
           type: 'number',
       })
       .option('host', {
