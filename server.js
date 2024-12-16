@@ -26,32 +26,32 @@ const mathPromise = MathJax.startup.promise;
 const TEX_MATH_PATTERNS = [
     {
         name: 'inline-parenthesis',
-        regex: /^\s*\\\((.*)\\\)\s*$/sg,
+        regex: /^\s*\\\((.*)\\\)[\s%]*$/sg,
         display: false,
     },
     {
         name: 'display-square-bracket',
-        regex: /^\s*\\\[(.*)\\\]\s*$/sg,
+        regex: /^\s*\\\[(.*)\\\][\s%]*$/sg,
         display: true,
     },
     {
         name: 'equation-env',
-        regex: /^\s*\\begin{equation}(.*)\\end{equation}\s*$/sg,
+        regex: /^\s*\\begin{equation}(.*)\\end{equation}[%\s]*$/sg,
         display: true,
     },
     {
         name: 'equation-star-env',
-        regex: /^\s*\\begin{equation\*}(.*)\\end{equation\*}\s*$/sg,
+        regex: /^\s*\\begin{equation\*}(.*)\\end{equation\*}[\s%]*$/sg,
         display: true,
     },
     {
         name: 'align-env',
-        regex: /^\s*(\\begin{align}.*\\end{align})\s*$/sg,
+        regex: /^\s*(\\begin{align}.*\\end{align})[\s%]*$/sg,
         display: true,
     },
     {
         name: 'align-star-env',
-        regex: /^\s*(\\begin{align\*}.*\\end{align\*})\s*$/sg,
+        regex: /^\s*(\\begin{align\*}.*\\end{align\*})[%\s]*$/sg,
         display: true,
     },
 ]
@@ -93,7 +93,7 @@ async function math2svg(texMath = '', scale = 1.0) {
                 });
         }
     }
-    throw new Error('No math pattern found.');
+    throw new Error(`No math pattern found in "${texMath}".`);
 }
 
 // Parse arguments.
