@@ -4,7 +4,7 @@ MathJax = {
         typeset: false,
     },
     loader: {
-        load: ['adaptors/liteDOM'],
+        load: ['adaptors/liteDOM', '[tex]/cancel'],
         require: require,
     },
     tex: {
@@ -16,6 +16,9 @@ MathJax = {
             Ket: ['{\\left\\vert {#1} \\right\\rangle}', 1],
             ketbra: ['{\\vert {#1} \\rangle \\langle {#2} \\vert}', 2],
             Ketbra: ['{\\left\\vert {#1} \\right\\rangle \\left\\langle {#2} \\right\\vert}', 2],
+            // Added ingredients.
+            tr: ['\\operatorname{tr}', 0],
+            im: ['\\operatorname{im}', 0],
         },
     }
 };
