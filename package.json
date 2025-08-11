@@ -5,7 +5,7 @@
   "license": "MIT",
   "description": "Convert LaTeX maths expressions into SVGs.",
   "dependencies": {
-    "mathjax-full": "^3.2.2",
+    "@mathjax/src": "^4.0.0",
     "yargs": "^18.0.0"
   }
 }

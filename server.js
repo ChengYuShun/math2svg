@@ -1,28 +1,6 @@
 // Load and configure MathJax.
-MathJax = {
-    startup: {
-        typeset: false,
-    },
-    loader: {
-        load: ['adaptors/liteDOM', '[tex]/cancel'],
-        require: require,
-    },
-    tex: {
-        macros: {
-            // A few macros seem not to be working for no reason.
-            bra: ['{\\langle {#1} \\vert}', 1],
-            ket: ['{\\vert {#1} \\rangle}', 1],
-            Bra: ['{\\left\\langle {#1} \right\\vert}', 1],
-            Ket: ['{\\left\\vert {#1} \\right\\rangle}', 1],
-            ketbra: ['{\\vert {#1} \\rangle \\langle {#2} \\vert}', 2],
-            Ketbra: ['{\\left\\vert {#1} \\right\\rangle \\left\\langle {#2} \\right\\vert}', 2],
-            // Added ingredients.
-            tr: ['\\operatorname{tr}', 0],
-            im: ['\\operatorname{im}', 0],
-        },
-    }
-};
-require('mathjax-full/components/src/tex-svg/tex-svg.js');
+require('./mathjax-config.js');
+require('@mathjax/src/bundle/tex-svg.js');
 const mathPromise = MathJax.startup.promise;
 
 // Regex patterns for matching TeX math.
@@ -67,11 +45,13 @@ async function math2svg(texMath = '', scale = 1.0) {
             const options = { display: pattern.display };
             return mathPromise
                 .then(() => {
-                    return MathJax.tex2svgPromise(match[1].trim(), options);
+                    inputStr = match[1].trim();
+                    return MathJax.tex2svgPromise(inputStr, options);
                 })
                 .then((node) => {
                     // children[0] is where the SVG is.
                     let svg = node.children[0]
+                    // Post-processing.
                     const oldWidth = svg.attributes['width'];
                     svg.attributes['width'] = oldWidth
                         .replace(/([\d.]+)ex/, (match, p1) => {
@@ -91,7 +71,7 @@ async function math2svg(texMath = '', scale = 1.0) {
                             return `${newVertAlign}ex`;
                         });
                     svg.attributes['style'] = svg.styles.cssText;
-                    const svgStr = MathJax.startup.adaptor.outerHTML(svg);
+                    const svgStr = MathJax.startup.adaptor.serializeXML(svg);
                     return svgStr;
                 });
         }
