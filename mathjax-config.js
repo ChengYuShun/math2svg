@@ -22,5 +22,9 @@ global.MathJax = {
     options: {
         enableEnrichment: false,
     },
+    output: {
+        // MathJax breaks the formula into pieces of SVGs.  We don't want that.
+        linebreaks: { inline: false },
+    },
 };
 
